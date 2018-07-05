@@ -1,0 +1,13 @@
+#Run on Django shell
+
+import os
+import csv
+import datetime
+path =  "/home/ec2-user/weather-restapi/webapp" #Set path of new directory here
+os.chdir(path) # changes the directory
+from webapp.models import weather #imports the model
+with open('daily.csv') as csvfile:
+    reader = csv.DictReader(csvfile)
+    for row in reader:
+        p = weather(date=row['DATE'], tmax=row['TMAX'], tmin=row['TMIN'])
+        p.save()
